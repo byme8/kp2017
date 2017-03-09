@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using kp.Business.Abstractions;
-using kp.Business.Exceptions;
+using kp.Entities.Abstractions;
+using kp.Entities.Exceptions;
 using kp.Domain.Data;
-using kp.Repository.Abstractions;
-using kp.Repository.Data;
+using kp.Entities.Context;
+using kp.Entities.Data;
 
-namespace kp.Business.Services
+namespace kp.Entities.Services
 {
 	class UserService : IUserService
 	{
-		public UserService(IRepository<UserEntity> users)
+		public UserService(kpContext context)
 		{
-			this.Users = users;
+			this.Context = context;
 		}
 
-		public IRepository<UserEntity> Users
+		public kpContext Context
 		{
 			get;
 		}
@@ -36,7 +36,7 @@ namespace kp.Business.Services
 				throw new BusinessException("You should provide a correct login.");
 			}
 
-			if (this.Users.GetAll().Any(o => o.Login == user.Login))
+			if (this.Context.Users.Any(o => o.Login == user.Login))
 			{
 				throw new BusinessException("You should provide a unique login.");
 			}
@@ -47,8 +47,8 @@ namespace kp.Business.Services
 				PasswordHash = this.GetHash(user.Password)
 			};
 
-			userEntity = this.Users.Add(userEntity);
-			this.Users.SaveChanges();
+			userEntity = this.Context.Users.Add(userEntity).Entity;
+			this.Context.SaveChanges();
 
 			//TODO: Add mapper
 			return new User

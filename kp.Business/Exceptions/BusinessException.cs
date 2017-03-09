@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace kp.Business.Exceptions
+namespace kp.Entities.Exceptions
 {
 	public class BusinessException : Exception
 	{

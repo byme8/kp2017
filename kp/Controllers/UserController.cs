@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using kp.Business.Abstractions;
+using kp.Entities.Abstractions;
 using kp.Domain.Data;
 using Microsoft.AspNetCore.Mvc;
 

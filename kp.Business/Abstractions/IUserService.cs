@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using kp.Domain.Data;
 
-namespace kp.Business.Abstractions
+namespace kp.Entities.Abstractions
 {
     public interface IUserService
     {

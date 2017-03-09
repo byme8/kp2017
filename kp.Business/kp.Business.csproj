@@ -10,7 +10,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\kp.Domain\kp.Domain.csproj" />
-    <ProjectReference Include="..\kp.Repository\kp.Repository.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="1.1.1-prerelease-10020" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.1-prerelease-10020" />
   </ItemGroup>
 
 </Project>

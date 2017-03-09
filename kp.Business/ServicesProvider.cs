@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using kp.Business.Abstractions;
-using kp.Business.Services;
-using kp.Repository;
+using kp.Entities.Abstractions;
+using kp.Entities.Services;
+using kp.Entities;
+using kp.Entities.Context;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace kp.Business
+namespace kp.Entities
 {
     public static class ServicesProvider
     {
 		public static void AddBusiness(this IServiceCollection services)
 		{
-			services.AddRepositories();
+			services.AddDbContext<kpContext>();
 			services.AddSingleton<IUserService, UserService>();
 		}
     }
