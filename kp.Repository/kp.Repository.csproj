@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\kp.Domain\kp.Domain.csproj" />
-    <ProjectReference Include="..\kp.Repository\kp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,8 @@ using kp.Domain.Data;
 
 namespace kp.Business.Abstractions
 {
-    public interface IUserService : IService<User>
+    public interface IUserService
     {
-
+		User Add(User user);
     }
 }
