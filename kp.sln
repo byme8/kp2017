@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp", "kp\kp.csproj", "{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp.Business", "kp.Business\kp.Business.csproj", "{BF80109D-C7D6-446B-98E6-11690D00B68F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{4E594986-DB0F-4F6A-A125-E9A82FA97854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp.Domain", "kp.Domain\kp.Domain.csproj", "{B908742D-F365-4B52-9FB7-B64C445644C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +21,21 @@ Global
 		{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF80109D-C7D6-446B-98E6-11690D00B68F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF80109D-C7D6-446B-98E6-11690D00B68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF80109D-C7D6-446B-98E6-11690D00B68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF80109D-C7D6-446B-98E6-11690D00B68F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B908742D-F365-4B52-9FB7-B64C445644C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B908742D-F365-4B52-9FB7-B64C445644C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B908742D-F365-4B52-9FB7-B64C445644C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B908742D-F365-4B52-9FB7-B64C445644C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F} = {4E594986-DB0F-4F6A-A125-E9A82FA97854}
+		{BF80109D-C7D6-446B-98E6-11690D00B68F} = {4E594986-DB0F-4F6A-A125-E9A82FA97854}
+		{B908742D-F365-4B52-9FB7-B64C445644C7} = {4E594986-DB0F-4F6A-A125-E9A82FA97854}
 	EndGlobalSection
 EndGlobal
