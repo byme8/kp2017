@@ -11,7 +11,6 @@ namespace kp.Repository.Abstractions
     {
 		TEntity Add(TEntity entity);
 
-		void Remove(Guid id);
 		void Remove(TEntity entity);
 
 		TEntity Get(Guid id);
