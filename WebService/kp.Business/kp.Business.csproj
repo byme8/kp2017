@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>net452</TargetFramework>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
