@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp", "kp\kp.csproj", "{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp.WebApi", "kp\kp.WebApi.csproj", "{0315CA60-F429-49A8-8F7F-DB3E13EBFB8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kp.Business", "kp.Business\kp.Business.csproj", "{BF80109D-C7D6-446B-98E6-11690D00B68F}"
 EndProject
