@@ -8,6 +8,12 @@ using kp.Entities.Exceptions;
 using kp.Domain.Data;
 using kp.Entities.Context;
 using kp.Entities.Data;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using Remotion.Linq.Parsing.Structure;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Reflection;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace kp.Entities.Services
 {
@@ -58,13 +64,35 @@ namespace kp.Entities.Services
 			};
 		}
 
+		public IQueryable<User> Get()
+		{
+			return this.Context.Users.
+				Select(o => new User
+				{
+					Id = o.Id,
+					Login = o.Login
+				});
+		}
+
+		public void Remove(User entity)
+		{
+			//TODO: Add mapper
+			var userEntity = new UserEntity
+			{
+				Id = entity.Id
+			};
+
+			this.Context.Users.Remove(userEntity);
+			this.Context.SaveChanges();
+		}
+
 		private string GetHash(string password)
 		{
 			using (var sha = SHA256.Create())
 			{
 				var passwordTextBytes = Encoding.UTF8.GetBytes(password);
 				var hash = sha.ComputeHash(passwordTextBytes);
-				var hashString = Encoding.UTF8.GetString(hash);
+				var hashString = Encoding.ASCII.GetString(hash);
 				return hashString;
 			}
 		}

@@ -26,5 +26,18 @@ namespace kp.Controllers
 		{
 			return this.Users.Add(user);
 		}
+
+		[HttpDelete]
+		public void Remove(User user)
+		{
+			this.Users.Remove(user);
+		}
+
+		[HttpGet]
+		public IEnumerable<User> Get(int page, int size)
+		{
+			return this.Users.Get().Skip(size * page).Take(size);
+		}
 	}
+
 }

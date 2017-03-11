@@ -18,7 +18,6 @@ namespace kp
 				.UseUrls("http://*:5001")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
                 .Build();
 
             host.Run();

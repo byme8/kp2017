@@ -14,7 +14,7 @@ namespace kp.Entities
 		public static void AddBusiness(this IServiceCollection services)
 		{
 			services.AddDbContext<kpContext>();
-			services.AddSingleton<IUserService, UserService>();
+			services.AddScoped<IUserService, UserService>();
 		}
     }
 }
