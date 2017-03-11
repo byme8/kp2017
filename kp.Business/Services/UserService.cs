@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace kp.Entities.Services
 {
@@ -74,6 +75,16 @@ namespace kp.Entities.Services
 				});
 		}
 
+		public IQueryable<User> Get(int page, int size)
+		{
+			return this.Context.Users.Skip(size * page).Take(size).
+				Select(o => new User
+				{
+					Id = o.Id,
+					Login = o.Login
+				});
+		}
+
 		public void Remove(User entity)
 		{
 			//TODO: Add mapper
@@ -84,6 +95,37 @@ namespace kp.Entities.Services
 
 			this.Context.Users.Remove(userEntity);
 			this.Context.SaveChanges();
+		}
+
+		public IEnumerable<User> SaveChanges(IEnumerable<User> users)
+		{
+			var results = new List<User>();
+			foreach (var user in users)
+			{
+				if (user.Id == Guid.Empty)
+				{
+					results.Add(this.Add(user));
+				}
+				else
+				{
+					//TODO: Add mapper
+					var userEntity = this.Context.Users.Update(new UserEntity
+					{
+						Id = user.Id,
+						Login = user.Login
+					});
+
+					results.Add(new User
+					{
+						Id = userEntity.Entity.Id,
+						Login = userEntity.Entity.Login
+					});
+				}
+			}
+
+			this.Context.SaveChanges();
+
+			return results;
 		}
 
 		private string GetHash(string password)

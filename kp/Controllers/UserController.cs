@@ -33,10 +33,16 @@ namespace kp.Controllers
 			this.Users.Remove(user);
 		}
 
+		[HttpPut]
+		public void SaveChanges([FromBody]User[] users)
+		{
+			this.Users.SaveChanges(users);
+		}
+
 		[HttpGet]
 		public IEnumerable<User> Get(int page, int size)
 		{
-			return this.Users.Get().Skip(size * page).Take(size);
+			return this.Users.Get(page, size);
 		}
 	}
 
