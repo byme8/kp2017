@@ -4,7 +4,7 @@ using System.Text;
 
 namespace kp.Entities.Exceptions
 {
-	public class BusinessException : Exception
+	public class BusinessException : ApplicationException
 	{
 		public BusinessException(string message) 
 			: base(message)
