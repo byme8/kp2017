@@ -13,5 +13,11 @@ namespace kp.Entities.Data
 			get;
 			set;
 		}
+
+		public bool Deleted
+		{
+			get;
+			set;
+		}
 	}
 }

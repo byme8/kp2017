@@ -34,9 +34,9 @@ namespace kp.Controllers
 		}
 
 		[HttpPut]
-		public void SaveChanges([FromBody]User[] users)
+		public IEnumerable<User> SaveChanges([FromBody]User[] users)
 		{
-			this.Users.SaveChanges(users);
+			return this.Users.SaveChanges(users);
 		}
 
 		[HttpGet]

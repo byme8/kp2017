@@ -8,9 +8,10 @@ using kp.Entities.Context;
 namespace kp.Business.Migrations
 {
     [DbContext(typeof(kpContext))]
-    partial class kpContextModelSnapshot : ModelSnapshot
+    [Migration("20170313151248_AddDeletedFieldToEntity")]
+    partial class AddDeletedFieldToEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1");

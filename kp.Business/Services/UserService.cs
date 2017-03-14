@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using kp.Business.Entities;
 
 namespace kp.Entities.Services
 {
@@ -67,7 +68,7 @@ namespace kp.Entities.Services
 
 		public IQueryable<User> Get()
 		{
-			return this.Context.Users.
+			return this.Context.Users.NotDeleted().
 				Select(o => new User
 				{
 					Id = o.Id,
@@ -77,7 +78,7 @@ namespace kp.Entities.Services
 
 		public IQueryable<User> Get(int page, int size)
 		{
-			return this.Context.Users.Skip(size * page).Take(size).
+			return this.Context.Users.NotDeleted().Skip(size * page).Take(size).
 				Select(o => new User
 				{
 					Id = o.Id,
@@ -102,25 +103,31 @@ namespace kp.Entities.Services
 			var results = new List<User>();
 			foreach (var user in users)
 			{
+				if (user.Deleted)
+				{
+					var userEntity = this.Context.Users.Find(user.Id);
+					userEntity.MarkAsDeleted();
+					continue;
+				}
+
 				if (user.Id == Guid.Empty)
 				{
 					results.Add(this.Add(user));
+					continue;
 				}
-				else
-				{
-					//TODO: Add mapper
-					var userEntity = this.Context.Users.Update(new UserEntity
-					{
-						Id = user.Id,
-						Login = user.Login
-					});
 
-					results.Add(new User
-					{
-						Id = userEntity.Entity.Id,
-						Login = userEntity.Entity.Login
-					});
-				}
+				//TODO: Add mapper
+				var entry = this.Context.Users.Update(new UserEntity
+				{
+					Id = user.Id,
+					Login = user.Login
+				});
+
+				results.Add(new User
+				{
+					Id = entry.Entity.Id,
+					Login = entry.Entity.Login
+				});
 			}
 
 			this.Context.SaveChanges();
