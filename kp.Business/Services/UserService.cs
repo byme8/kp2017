@@ -86,53 +86,34 @@ namespace kp.Entities.Services
 				});
 		}
 
-		public void Remove(User entity)
+		public void Remove(Guid id)
 		{
-			//TODO: Add mapper
 			var userEntity = new UserEntity
 			{
-				Id = entity.Id
+				Id = id
 			};
 
 			this.Context.Users.Remove(userEntity);
 			this.Context.SaveChanges();
 		}
 
-		public IEnumerable<User> SaveChanges(IEnumerable<User> users)
+		public User Update(User user)
 		{
-			var results = new List<User>();
-			foreach (var user in users)
+			var entity = this.Context.Users.NotDeleted().FirstOrDefault(o => o.Id == user.Id);
+			if (entity is null)
 			{
-				if (user.Deleted)
-				{
-					var userEntity = this.Context.Users.Find(user.Id);
-					userEntity.MarkAsDeleted();
-					continue;
-				}
-
-				if (user.Id == Guid.Empty)
-				{
-					results.Add(this.Add(user));
-					continue;
-				}
-
-				//TODO: Add mapper
-				var entry = this.Context.Users.Update(new UserEntity
-				{
-					Id = user.Id,
-					Login = user.Login
-				});
-
-				results.Add(new User
-				{
-					Id = entry.Entity.Id,
-					Login = entry.Entity.Login
-				});
+				throw new BusinessException($"Entity with Id {user.Id} does not exist.");
 			}
 
+			entity.Login = user.Login;
 			this.Context.SaveChanges();
 
-			return results;
+			//TODO: Add mapper
+			return new User
+			{
+				Id = entity.Id,
+				Login = entity.Login
+			};
 		}
 
 		private string GetHash(string password)

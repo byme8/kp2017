@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using kp.Domain.Data.Core;
 
@@ -8,8 +9,9 @@ namespace kp.Business.Abstractions
 		where TEntity : DomainEntity
 	{
 		TEntity Add(TEntity entity);
-		void Remove(TEntity entity);
-		IEnumerable<TEntity> SaveChanges(IEnumerable<TEntity> entities);
+		void Remove(Guid id);
+
+		TEntity Update(TEntity entity);
 
 		IQueryable<TEntity> Get();
 		IQueryable<TEntity> Get(int page, int size);

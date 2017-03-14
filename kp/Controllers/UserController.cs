@@ -28,15 +28,15 @@ namespace kp.Controllers
 		}
 
 		[HttpDelete]
-		public void Remove(User user)
+		public void Remove(Guid id)
 		{
-			this.Users.Remove(user);
+			this.Users.Remove(id);
 		}
 
 		[HttpPut]
-		public IEnumerable<User> SaveChanges([FromBody]User[] users)
+		public User Update([FromBody]User user)
 		{
-			return this.Users.SaveChanges(users);
+			return this.Users.Update(user);
 		}
 
 		[HttpGet]
