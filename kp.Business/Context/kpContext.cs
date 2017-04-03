@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using kp.Business.Entities;
 using kp.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace kp.Entities.Context
 {
-    class kpContext : DbContext
-    {
+	class kpContext : DbContext
+	{
 		public DbSet<UserEntity> Users
 		{
 			get;

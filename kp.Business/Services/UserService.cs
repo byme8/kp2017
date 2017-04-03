@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,13 +7,6 @@ using kp.Entities.Exceptions;
 using kp.Domain.Data;
 using kp.Entities.Context;
 using kp.Entities.Data;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using Remotion.Linq.Parsing.Structure;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Internal;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using kp.Business.Entities;
 
 namespace kp.Entities.Services
@@ -68,7 +60,7 @@ namespace kp.Entities.Services
 
 		public IQueryable<User> Get()
 		{
-			return this.Context.Users.NotDeleted().
+			return this.Context.Users.
 				Select(o => new User
 				{
 					Id = o.Id,
@@ -78,7 +70,7 @@ namespace kp.Entities.Services
 
 		public IQueryable<User> Get(int page, int size)
 		{
-			return this.Context.Users.NotDeleted().Skip(size * page).Take(size).
+			return this.Context.Users.Skip(size * page).Take(size).
 				Select(o => new User
 				{
 					Id = o.Id,
@@ -99,7 +91,7 @@ namespace kp.Entities.Services
 
 		public User Update(User user)
 		{
-			var entity = this.Context.Users.NotDeleted().FirstOrDefault(o => o.Id == user.Id);
+			var entity = this.Context.Users.FirstOrDefault(o => o.Id == user.Id);
 			if (entity is null)
 			{
 				throw new BusinessException($"Entity with Id {user.Id} does not exist.");

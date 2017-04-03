@@ -42,7 +42,7 @@ namespace kp.Controllers
 		[HttpGet]
 		public IEnumerable<User> Get(int page, int size)
 		{
-			return this.Users.Get(page, size);
+			return this.Users.Get();
 		}
 	}
 
