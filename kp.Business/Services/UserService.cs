@@ -8,6 +8,7 @@ using kp.Domain.Data;
 using kp.Entities.Context;
 using kp.Entities.Data;
 using kp.Business.Entities;
+using AutoMapper;
 
 namespace kp.Entities.Services
 {
@@ -50,32 +51,19 @@ namespace kp.Entities.Services
 			userEntity = this.Context.Users.Add(userEntity).Entity;
 			this.Context.SaveChanges();
 
-			//TODO: Add mapper
-			return new User
-			{
-				Id = userEntity.Id,
-				Login = user.Login
-			};
+			return Mapper.Map<User>(userEntity);
 		}
 
 		public IQueryable<User> Get()
 		{
 			return this.Context.Users.
-				Select(o => new User
-				{
-					Id = o.Id,
-					Login = o.Login
-				});
+				Select(o => Mapper.Map<User>(o));
 		}
 
 		public IQueryable<User> Get(int page, int size)
 		{
 			return this.Context.Users.Skip(size * page).Take(size).
-				Select(o => new User
-				{
-					Id = o.Id,
-					Login = o.Login
-				});
+				Select(o => Mapper.Map<User>(o));
 		}
 
 		public User Get(Guid id)
@@ -101,21 +89,16 @@ namespace kp.Entities.Services
 
 		public User Update(User user)
 		{
-			var entity = this.Context.Users.FirstOrDefault(o => o.Id == user.Id);
-			if (entity is null)
+			var userEntity = this.Context.Users.FirstOrDefault(o => o.Id == user.Id);
+			if (userEntity is null)
 			{
 				throw new BusinessException($"Entity with Id {user.Id} does not exist.");
 			}
 
-			entity.Login = user.Login;
+			userEntity.Login = user.Login;
 			this.Context.SaveChanges();
 
-			//TODO: Add mapper
-			return new User
-			{
-				Id = entity.Id,
-				Login = entity.Login
-			};
+			return Mapper.Map<User>(userEntity);
 		}
 
 		private string GetHash(string password)

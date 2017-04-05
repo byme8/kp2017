@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using kp.Business.AutoMapper;
 using kp.Entities;
 using kp.Entities.Exceptions;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +52,7 @@ namespace kp
 				}
 			});
 			app.UseMvc();
+			app.UseMapper();
 		}
 	}
 }
