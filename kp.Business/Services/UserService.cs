@@ -78,6 +78,16 @@ namespace kp.Entities.Services
 				});
 		}
 
+		public User Get(Guid id)
+		{
+			var entity = this.Context.Users.First(user => user.Id == id);
+			return new User
+			{
+				Id = entity.Id,
+				Login = entity.Login
+			};
+		}
+
 		public void Remove(Guid id)
 		{
 			var userEntity = new UserEntity

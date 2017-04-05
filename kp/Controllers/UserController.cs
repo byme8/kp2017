@@ -39,11 +39,16 @@ namespace kp.Controllers
 			return this.Users.Update(user);
 		}
 
+		[HttpGet("{id}")]
+		public User Get(Guid id)
+		{
+			return this.Users.Get().First(o => o.Id == id);
+		}
+
 		[HttpGet]
-		public IEnumerable<User> Get(int page, int size)
+		public IEnumerable<User> Get()
 		{
 			return this.Users.Get();
 		}
 	}
-
 }
