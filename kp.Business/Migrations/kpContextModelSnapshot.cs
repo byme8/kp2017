@@ -1,9 +1,9 @@
 ﻿using System;
+using kp.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using kp.Entities.Context;
 
 namespace kp.Business.Migrations
 {

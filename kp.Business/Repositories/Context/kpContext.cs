@@ -6,9 +6,9 @@ using kp.Business.Entities;
 using kp.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace kp.Entities.Context
+namespace kp.Repositories.Context
 {
-	class kpContext : DbContext
+	public class kpContext : DbContext
 	{
 		public DbSet<UserEntity> Users
 		{
