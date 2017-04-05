@@ -1,14 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace kp.Entities.Exceptions
 {
 	public class BusinessException : ApplicationException
 	{
-		public BusinessException(string message) 
+		public BusinessException(string message)
 			: base(message)
 		{
+			this.Messages = new[] { message };
+		}
+
+		public BusinessException(string[] messages)
+			: base(string.Join("\n", messages))
+		{
+			this.Messages = messages;
+		}
+
+		public IEnumerable<string> Messages
+		{
+			get;
 		}
 	}
 }

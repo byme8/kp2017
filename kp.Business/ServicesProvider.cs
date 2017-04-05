@@ -8,6 +8,9 @@ using kp.Repositories.Context;
 using kp.Business.Abstractions.Services;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Repositories;
+using kp.Domain.Data;
+using kp.Business.Abstractions.Validators;
+using kp.Business.Validators.Users;
 
 namespace kp.Entities
 {
@@ -18,6 +21,7 @@ namespace kp.Entities
 			services.AddDbContext<kpContext>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<INewEntryValidator<User>, NewUserValidator>();
 		}
     }
 }
