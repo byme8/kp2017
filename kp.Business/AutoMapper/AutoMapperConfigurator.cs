@@ -25,6 +25,8 @@ namespace kp.Business.AutoMapper
 				mapper.CreateMap<User, UserEntity>().
 					ConvertUsing((domainEntity, entity) =>
 					{
+						entity = entity ?? new UserEntity();
+
 						entity.Id = domainEntity.Id;
 						entity.Login = domainEntity.Login;
 
