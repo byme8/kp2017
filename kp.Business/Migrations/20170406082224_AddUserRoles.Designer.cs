@@ -8,9 +8,10 @@ using kp.Repositories.Context;
 namespace kp.Business.Migrations
 {
     [DbContext(typeof(kpContext))]
-    partial class kpContextModelSnapshot : ModelSnapshot
+    [Migration("20170406082224_AddUserRoles")]
+    partial class AddUserRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1");

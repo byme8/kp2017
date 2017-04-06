@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using kp.Domain.Data.Core;
+using kp.Entities.Data;
 
 namespace kp.Business.Abstractions.Validators
 {
     public interface IEntityValidator<TEntity> 
 		where TEntity : DomainEntity
-    {
+	{
 		ValidationResult Validate(TEntity entity);
     }
 }

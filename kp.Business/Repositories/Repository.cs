@@ -60,5 +60,10 @@ namespace kp.Business.Repositories
 		{
 			return this.Set.Update(entity).Entity;
 		}
+
+		public bool Exist(Guid id)
+		{
+			return this.Set.Any(o => o.Id == id);
+		}
 	}
 }

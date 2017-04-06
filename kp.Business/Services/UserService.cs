@@ -9,91 +9,65 @@ using AutoMapper;
 using kp.Business.Abstractions.Services;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Validators;
+using kp.Business.Entities;
+using kp.Business.Services.Core;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 
 namespace kp.Entities.Services
 {
-	class UserService : IUserService
+	class UserService : EntityService<User, UserEntity>, IUserService
 	{
-		public UserService(IRepository<UserEntity> repository, INewEntryValidator<User> newEntryValidator)
+		public UserService(IRepository<UserEntity> entities,
+							INewEntryValidator<User> newEntryValidator,
+							IRepository<UserRoleEntity> userRoles,
+							IRepository<RoleEntity> roles)
+			: base(entities, newEntryValidator)
 		{
-			this.Repository = repository;
-			this.NewEntryValidator = newEntryValidator;
+			this.UserRoles = userRoles;
+			this.Roles = roles;
 		}
 
-		public IRepository<UserEntity> Repository
+		public IRepository<UserRoleEntity> UserRoles
 		{
 			get;
 		}
 
-		public INewEntryValidator<User> NewEntryValidator
+		public IRepository<RoleEntity> Roles
 		{
 			get;
 		}
 
-		public User Add(User user)
+		public User AddRole(Guid userId, Guid roleId)
 		{
-			var validationResults = this.NewEntryValidator.Validate(user);
-			if (!validationResults.IsValid)
+			if (!this.Repository.Exist(userId))
 			{
-				throw new BusinessException(validationResults.Errors.Select(o => o.ErrorMessage).ToArray());
+				throw new BusinessException($"User with id {userId} does not exist");
 			}
 
-			var userEntity = new UserEntity
+			if (!this.Roles.Exist(roleId))
 			{
-				Login = user.Login,
-				PasswordHash = this.GetHash(user.Password)
-			};
+				throw new BusinessException($"Role with id {roleId} does not exist");
+			}
 
-			userEntity = this.Repository.Add(userEntity);
-			this.Repository.SaveChanges();
+			this.UserRoles.Add(new UserRoleEntity
+			{
+				UserId = userId,
+				RoleId = roleId
+			});
+			this.UserRoles.SaveChanges();
 
-			return Mapper.Map<User>(userEntity);
+			return this.Repository.Entities.
+				Where(o => o.Id == userId).
+					Include(o => o.Roles).
+				ProjectTo<User>().First();
 		}
 
-		public IQueryable<User> Get()
+		public override IQueryable<User> Get()
 		{
 			return this.Repository.Entities.
-				Select(o => Mapper.Map<User>(o));
-		}
-
-		public IQueryable<User> Get(int page, int size)
-		{
-			return this.Repository.Entities.Skip(size * page).Take(size).
-				Select(o => Mapper.Map<User>(o));
-		}
-
-		public User Get(Guid id)
-		{
-			var entity = this.Repository.Entities.First(user => user.Id == id);
-			return Mapper.Map<User>(entity);
-		}
-
-		public void Remove(Guid id)
-		{
-			this.Repository.Remove(id);
-			this.Repository.SaveChanges();
-		}
-
-		public User Update(User user)
-		{
-			var userEntity = this.Repository.Entities.FirstOrDefault(o => o.Id == user.Id) ??
-				throw new BusinessException($"Entity with Id {user.Id} does not exist.");
-
-			userEntity.Login = user.Login;
-			this.Repository.SaveChanges();
-
-			return Mapper.Map<User>(userEntity);
-		}
-
-		private string GetHash(string password)
-		{
-			using (var sha = SHA256.Create())
-			{
-				var passwordTextBytes = Encoding.UTF8.GetBytes(password);
-				var hash = sha.ComputeHash(passwordTextBytes);
-				var hashString = Encoding.ASCII.GetString(hash);
-				return hashString;
-			}
+				Include(o => o.Roles).
+				ProjectTo<User>();
 		}
 	}
 }

@@ -18,5 +18,11 @@ namespace kp.Domain.Data
 			get;
 			set;
 		}
+
+		public IEnumerable<Role> Roles
+		{
+			get;
+			set;
+		}
 	}
 }

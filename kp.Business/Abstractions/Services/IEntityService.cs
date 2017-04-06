@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using kp.Domain.Data.Core;
+using kp.Entities.Data;
 
 namespace kp.Business.Abstractions.Services
 {
@@ -14,6 +15,5 @@ namespace kp.Business.Abstractions.Services
 		TEntity Update(TEntity entity);
 
 		IQueryable<TEntity> Get();
-		IQueryable<TEntity> Get(int page, int size);
 	}
 }

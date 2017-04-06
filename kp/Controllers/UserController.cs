@@ -4,16 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using kp.Business.Abstractions.Services;
 using kp.Domain.Data;
+using kp.WebApi.Controllers.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kp.Controllers
 {
 	[Route("api/users")]
-	public class UserController : Controller
+	public class UserController : EntityController<User>
 	{
-		public UserController(IUserService users)
+		public UserController(IUserService entities)
+			: base(entities)
 		{
-			this.Users = users;
+			this.Users = entities;
 		}
 
 		public IUserService Users
@@ -21,34 +23,10 @@ namespace kp.Controllers
 			get;
 		}
 
-		[HttpPost]
-		public User Create([FromBody]User user)
+		[HttpPost("{userId}/roles/{roleId}")]
+		public User AddRole(Guid userId, Guid roleId)
 		{
-			return this.Users.Add(user);
-		}
-
-		[HttpDelete]
-		public void Remove(Guid id)
-		{
-			this.Users.Remove(id);
-		}
-
-		[HttpPut]
-		public User Update([FromBody]User user)
-		{
-			return this.Users.Update(user);
-		}
-
-		[HttpGet("{id}")]
-		public User Get(Guid id)
-		{
-			return this.Users.Get().First(o => o.Id == id);
-		}
-
-		[HttpGet]
-		public IEnumerable<User> Get()
-		{
-			return this.Users.Get();
+			return this.Users.AddRole(userId, roleId);
 		}
 	}
 }

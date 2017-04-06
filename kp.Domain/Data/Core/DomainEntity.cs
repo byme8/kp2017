@@ -11,11 +11,5 @@ namespace kp.Domain.Data.Core
 			get;
 			set;
 		}
-
-		public bool Deleted
-		{
-			get;
-			set;
-		}
 	}
 }

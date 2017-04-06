@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using kp.Business.Entities;
 
 namespace kp.Entities.Data
 {
@@ -13,6 +14,12 @@ namespace kp.Entities.Data
 		}
 
 		public string PasswordHash
+		{
+			get;
+			set;
+		}
+
+		public IList<UserRoleEntity> Roles
 		{
 			get;
 			set;
