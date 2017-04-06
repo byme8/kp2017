@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace kp.WebApi.Controllers
 {
-	[Route("api/user/roles")]
+	[Route("api/users/roles")]
 	public class RoleController : EntityController<Role>
 	{
 		public RoleController(IEntityService<Role> entities) 
