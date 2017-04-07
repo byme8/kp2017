@@ -19,10 +19,10 @@ namespace kp.Entities.Data
 			set;
 		}
 
-		public IEnumerable<UserRoleEntity> Roles
+		public IList<UserRoleEntity> Roles
 		{
 			get;
 			set;
-		} = new UserRoleEntity[0];
+		} = new List<UserRoleEntity>();
 	}
 }
