@@ -20,7 +20,7 @@ namespace kp.Repositories.Context
 		{
 			base.OnConfiguring(optionsBuilder);
 
-			optionsBuilder.UseMySql(@"Server=localhost;database=kp;uid=root;pwd=root;");
-		}
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=kp;Trusted_Connection=True;");
+        }
 	}
 }
