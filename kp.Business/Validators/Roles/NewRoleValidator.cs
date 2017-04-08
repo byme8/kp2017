@@ -16,7 +16,7 @@ namespace kp.Business.Validators.Roles
 		public NewRoleValidator(IRepository<RoleEntity> roles)
 		{
 			this.RuleFor(role => role.Name).
-				Must(name => roles.Entities.All(o => o.Name != name)).
+				Must(name => roles.Get().All(o => o.Name != name)).
 					WithMessage("Role name should be unique.");
 		}
     }

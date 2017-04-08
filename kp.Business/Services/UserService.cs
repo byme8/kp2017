@@ -13,6 +13,7 @@ using kp.Business.Entities;
 using kp.Business.Services.Core;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
+using kp.Business.Repositories;
 
 namespace kp.Entities.Services
 {
@@ -57,7 +58,7 @@ namespace kp.Entities.Services
 			});
 			this.UserRoles.SaveChanges();
 
-			return this.Repository.Entities.
+			return this.Repository.Get().
 				Where(o => o.Id == userId).
 					Include(o => o.Roles).
 				ProjectTo<User>().First();
@@ -65,9 +66,26 @@ namespace kp.Entities.Services
 
 		public override IQueryable<User> Get()
 		{
-			return this.Repository.Entities.
+			return this.Repository.Get().
 				Include(o => o.Roles).
 				ProjectTo<User>();
 		}
-	}
+
+        public bool IsAdmin(Guid userId)
+        {
+            return HasUserRole(userId, RepositoryInitializator.AdminRole);
+        }
+
+        public bool IsDatabaseAdmin(Guid userId)
+        {
+            return HasUserRole(userId, RepositoryInitializator.DatabaseAdminLogin);
+        }
+
+        private bool HasUserRole(Guid userId, string userRole)
+        {
+            return this.Repository.Get().
+                            Any(user => user.Id == userId &&
+                                user.Roles.Any(role => role.Role.Name == userRole));
+        }
+    }
 }

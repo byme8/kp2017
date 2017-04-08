@@ -9,6 +9,7 @@ using kp.Business.Entities;
 using kp.Domain.Data;
 using kp.Entities.Data;
 using Microsoft.AspNetCore.Builder;
+using kp.Business.Helpers;
 
 namespace kp.Business.AutoMapper
 {
@@ -32,7 +33,7 @@ namespace kp.Business.AutoMapper
 
 						if (!string.IsNullOrWhiteSpace(domainEntity.Password))
 						{
-							entity.PasswordHash = GetHash(domainEntity.Password);
+							entity.PasswordHash = HashHelper.GetHash(domainEntity.Password);
 						}
 
 						return entity;
@@ -40,18 +41,9 @@ namespace kp.Business.AutoMapper
 
 				mapper.CreateMap<RoleEntity, Role>();
 				mapper.CreateMap<Role, RoleEntity>();
+                mapper.MapToken();
 			});
 		}
 
-		private static string GetHash(string password)
-		{
-			using (var sha = SHA256.Create())
-			{
-				var passwordTextBytes = Encoding.UTF8.GetBytes(password);
-				var hash = sha.ComputeHash(passwordTextBytes);
-				var hashString = Encoding.ASCII.GetString(hash);
-				return hashString;
-			}
-		}
 	}
 }

@@ -20,7 +20,7 @@ namespace kp.Business.Validators.Users
 			this.RuleFor(user => user.Login).
 				NotEmpty().
 					WithMessage("User should have login.").
-				Must(login => this.Users.Entities.All(o => o.Login != login)).
+				Must(login => this.Users.Get().All(o => o.Login != login)).
 					WithMessage("User's login should be unique.");
 
 			this.RuleFor(user => user.Password).

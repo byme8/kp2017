@@ -6,9 +6,11 @@ using kp.Business.Abstractions.Services;
 using kp.Domain.Data;
 using kp.WebApi.Controllers.Core;
 using Microsoft.AspNetCore.Mvc;
+using kp.WebApi.Filters;
 
 namespace kp.Controllers
 {
+    [OnlyAdmins]
 	[Route("api/users")]
 	public class UserController : EntityController<User>
 	{

@@ -7,6 +7,7 @@ using kp.Business.Abstractions.Repositories;
 using kp.Entities.Data;
 using kp.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
+using kp.Entities.Exceptions;
 
 namespace kp.Business.Repositories
 {
@@ -18,12 +19,7 @@ namespace kp.Business.Repositories
 			get;
 		}
 
-		public IQueryable<TEntity> Entities
-		{
-			get;
-		}
-
-		public DbSet<TEntity> Set
+		public DbSet<TEntity> Entities
 		{
 			get;
 		}
@@ -31,13 +27,12 @@ namespace kp.Business.Repositories
 		public Repository(kpContext context)
 		{
 			this.Context = context;
-			this.Set = this.Context.Set<TEntity>();
-			this.Entities = this.Set;
+			this.Entities = this.Context.Set<TEntity>();
 		}
 
 		public TEntity Add(TEntity entity)
 		{
-			return this.Set.Add(entity).Entity;
+			return this.Entities.Add(entity).Entity;
 		}
 
 		public void Remove(Guid id)
@@ -48,7 +43,7 @@ namespace kp.Business.Repositories
 				throw new InvalidOperationException("Entity missing");
 			}
 
-			this.Set.Remove(entity);
+			this.Entities.Remove(entity);
 		}
 
 		public void SaveChanges()
@@ -58,12 +53,23 @@ namespace kp.Business.Repositories
 
 		public TEntity Update(TEntity entity)
 		{
-			return this.Set.Update(entity).Entity;
+			return this.Entities.Update(entity).Entity;
 		}
 
 		public bool Exist(Guid id)
 		{
-			return this.Set.Any(o => o.Id == id);
+			return this.Entities.Any(o => o.Id == id);
 		}
-	}
+
+        public TEntity Get(Guid id)
+        {
+            return this.Entities.FirstOrDefault(o => o.Id == id) 
+                ?? throw new BusinessException("Entity with such id is not found.");
+        }
+
+        public IQueryable<TEntity> Get()
+        {
+            return this.Entities;
+        }
+    }
 }

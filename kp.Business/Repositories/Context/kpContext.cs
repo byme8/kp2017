@@ -30,6 +30,12 @@ namespace kp.Repositories.Context
             set;
         }
 
+        public DbSet<TokenEntity> Tokens
+        {
+            get;
+            set;
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

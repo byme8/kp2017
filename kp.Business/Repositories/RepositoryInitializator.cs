@@ -13,8 +13,10 @@ namespace kp.Business.Repositories
     public static class RepositoryInitializator
     {
         public const string DatabaseAdminLogin = "DataBaseAdmin";
-        const string DatabaseAdminPassword = "DataBaseAdminPassword";
+        public const string AdminLogin = "Admin";
+        const string Password = "Password";
         public const string DatabaseAdminRole = "DatabaseAdmin";
+        public const string AdminRole = "Admin";
 
         public static void UseRepositoryInitializator(this IApplicationBuilder app)
         {
@@ -26,13 +28,24 @@ namespace kp.Business.Repositories
                 var user = users.Add(new User
                 {
                     Login = DatabaseAdminLogin,
-                    Password = DatabaseAdminPassword
+                    Password = Password
                 });
                 var role = roles.Add(new Role
                 {
                     Name = DatabaseAdminRole
                 });
 
+                users.AddRole(user.Id, role.Id);
+
+                user = users.Add(new User
+                {
+                    Login = AdminLogin,
+                    Password = Password
+                });
+                role = roles.Add(new Role
+                {
+                    Name = AdminRole
+                });
                 users.AddRole(user.Id, role.Id);
             }
         }

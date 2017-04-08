@@ -24,7 +24,6 @@ namespace kp.Entities
 		{
 			services.AddDbContext<kpContext>();
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<RepositoryInitializator>();
 
             // Validators
             services.AddScoped<INewEntryValidator<User>, NewUserValidator>();
@@ -32,6 +31,7 @@ namespace kp.Entities
 
 			// Services
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IEntityService<Role>, EntityService<Role, RoleEntity>>();
 		}
     }

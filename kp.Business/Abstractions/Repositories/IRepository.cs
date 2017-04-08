@@ -10,16 +10,14 @@ namespace kp.Business.Abstractions.Repositories
     public interface IRepository<TEntity>
 		where TEntity : Entity
 	{
-		IQueryable<TEntity> Entities
-		{
-			get;
-		}
-
 		TEntity Add(TEntity entity);
 		TEntity Update(TEntity entity);
 		bool Exist(Guid id);
 		void Remove(Guid id);
 
-		void SaveChanges();
+        TEntity Get(Guid id);
+        IQueryable<TEntity> Get();
+
+        void SaveChanges();
 	}
 }

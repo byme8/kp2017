@@ -51,7 +51,7 @@ namespace kp.Business.Services.Core
 
 		public virtual IQueryable<TDomainEntity> Get()
 		{
-			return this.Repository.Entities.ProjectTo<TDomainEntity>();
+			return this.Repository.Get().ProjectTo<TDomainEntity>();
 		}
 
 		public virtual void Remove(Guid id)
@@ -62,7 +62,7 @@ namespace kp.Business.Services.Core
 
 		public virtual TDomainEntity Update(TDomainEntity domainEntity)
 		{
-			var entity = this.Repository.Entities.FirstOrDefault(o => o.Id == domainEntity.Id) ??
+			var entity = this.Repository.Get().FirstOrDefault(o => o.Id == domainEntity.Id) ??
 				throw new BusinessException($"Entity with Id {domainEntity.Id} does not exist.");
 
 			Mapper.Map(domainEntity, entity);
