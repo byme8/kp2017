@@ -52,10 +52,9 @@ namespace kp
 					context.Response.Body.Write(bytes, 0, bytes.Length);
 				}
 			});
-			app.UseMvc();
+            app.UseRepositoryInitializator();
+            app.UseMvc();
 			app.UseMapper();
-
-            app.ApplicationServices.GetService<RepositoryInitializator>().TryInitialize();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using kp.Business.Abstractions.Services;
 using kp.Domain.Data;
 using kp.Repositories.Context;
+using Microsoft.AspNetCore.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,16 @@ using System.Threading.Tasks;
 
 namespace kp.Business.Repositories
 {
-    public class RepositoryInitializator
+    public static class RepositoryInitializator
     {
-        private IUserService users;
-        private IEntityService<Role> roles;
+        public const string DatabaseAdminLogin = "DataBaseAdmin";
+        const string DatabaseAdminPassword = "DataBaseAdminPassword";
+        public const string DatabaseAdminRole = "DatabaseAdmin";
 
-        public RepositoryInitializator(IUserService users, IEntityService<Role> roles)
+        public static void UseRepositoryInitializator(this IApplicationBuilder app)
         {
-            this.users = users;
-            this.roles = roles;
-        }
-
-        public void TryInitialize()
-        {
-            const string DatabaseAdminLogin = "DataBaseAdmin";
-            const string DatabaseAdminPassword = "DataBaseAdminPassword";
-            const string DatabaseAdminRole = "DatabaseAdmin";
+            var users = app.ApplicationServices.GetService(typeof(IUserService)) as IUserService;
+            var roles = app.ApplicationServices.GetService(typeof(IEntityService<Role>)) as IEntityService<Role>;
 
             if (!users.Get().Any(o => o.Login == DatabaseAdminLogin))
             {
