@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using kp.Business.AutoMapper;
 using kp.Entities;
 using kp.Entities.Exceptions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using kp.Business.Repositories;
+using Microsoft.AspNetCore.Builder;
+using kp.WebApi.Middleware;
 
 namespace kp
 {
@@ -40,18 +41,7 @@ namespace kp
 			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 
-			app.Use(async (context, next) =>
-			{
-				try
-				{
-					await next();
-				}
-				catch (BusinessException business)
-				{
-					var bytes = Encoding.UTF8.GetBytes($"\"{ business.Message }\"");
-					context.Response.Body.Write(bytes, 0, bytes.Length);
-				}
-			});
+            app.UseExceptionHandling();
             app.UseMvc();
 			app.UseMapper();
             app.UseRepositoryInitializator();
