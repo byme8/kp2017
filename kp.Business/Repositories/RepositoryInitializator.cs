@@ -2,6 +2,7 @@
 using kp.Business.Abstractions.Services;
 using kp.Domain.Data;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace kp.Business.Repositories
 {
@@ -15,8 +16,8 @@ namespace kp.Business.Repositories
 
         public static void UseRepositoryInitializator(this IApplicationBuilder app)
         {
-            var users = app.ApplicationServices.GetService(typeof(IUserService)) as IUserService;
-            var roles = app.ApplicationServices.GetService(typeof(IEntityService<Role>)) as IEntityService<Role>;
+            var users = app.ApplicationServices.GetService<IUserService>();
+            var roles = app.ApplicationServices.GetService<IRoleService>();
 
             if (!users.Get().Any(o => o.Login == DatabaseAdminLogin))
             {

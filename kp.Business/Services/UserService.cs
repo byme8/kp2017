@@ -84,5 +84,15 @@ namespace kp.Entities.Services
                             Any(user => user.Id == userId &&
                                 user.Roles.Any(role => role.Role.Name == userRole));
         }
+
+        public override void Remove(Guid id)
+        {
+            var userName = this.Repository.Get().Where(o => o.Id == id).Select(o => o.Login).First();
+            if (userName == RepositoryInitializator.DatabaseAdminLogin ||
+                userName == RepositoryInitializator.AdminLogin)
+                Error.Throw(Errors.YouCantDeleteThisUser);
+
+            base.Remove(id);
+        }
     }
 }

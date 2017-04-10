@@ -28,7 +28,7 @@ namespace kp.Entities
             // Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IEntityService<Role>, EntityService<Role, RoleEntity>>();
+            services.AddScoped<IRoleService, RoleService>();
         }
     }
 }

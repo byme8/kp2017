@@ -8,7 +8,7 @@ namespace kp.WebApi.Controllers
     [Route("api/users/roles")]
     public class RoleController : EntityController<Role>
     {
-        public RoleController(IEntityService<Role> entities)
+        public RoleController(IRoleService entities)
             : base(entities)
         {
         }
