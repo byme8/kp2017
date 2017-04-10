@@ -5,6 +5,7 @@ using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Services;
 using kp.Business.Abstractions.Validators;
 using kp.Business.Entities;
+using kp.Business.Errors;
 using kp.Business.Repositories;
 using kp.Business.Services.Core;
 using kp.Domain.Data;
@@ -39,14 +40,10 @@ namespace kp.Entities.Services
         public User AddRole(Guid userId, Guid roleId)
         {
             if (!this.Repository.Exist(userId))
-            {
-                throw new BusinessException($"User with id {userId} does not exist");
-            }
+                Error.Throw(Errors.SuchEntryDoesNotExist, userId);
 
             if (!this.Roles.Exist(roleId))
-            {
-                throw new BusinessException($"Role with id {roleId} does not exist");
-            }
+                Error.Throw(Errors.SuchEntryDoesNotExist, roleId);
 
             this.UserRoles.Add(new UserRoleEntity
             {
@@ -80,6 +77,9 @@ namespace kp.Entities.Services
 
         private bool HasUserRole(Guid userId, string userRole)
         {
+            if (!this.Repository.Exist(userId))
+                Error.Throw(Errors.SuchEntryDoesNotExist, userId);
+
             return this.Repository.Get().
                             Any(user => user.Id == userId &&
                                 user.Roles.Any(role => role.Role.Name == userRole));

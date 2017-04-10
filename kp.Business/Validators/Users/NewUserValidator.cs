@@ -12,16 +12,15 @@ namespace kp.Business.Validators.Users
         public NewUserValidator(IRepository<UserEntity> users)
         {
             this.Users = users;
-
             this.RuleFor(user => user.Login).
                 NotEmpty().
-                    WithMessage("User should have login.").
+                    WithErrorCode(Errors.Errors.UserShouldHaveLogin).
                 Must(login => this.Users.Get().All(o => o.Login != login)).
-                    WithMessage("User's login should be unique.");
+                    WithErrorCode(Errors.Errors.UserLoginExist);
 
             this.RuleFor(user => user.Password).
                 NotEmpty().
-                    WithMessage("User should have password");
+                    WithErrorCode(Errors.Errors.UserShouldHavePassword);
         }
 
         public IRepository<UserEntity> Users

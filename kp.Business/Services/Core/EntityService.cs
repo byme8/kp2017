@@ -5,6 +5,7 @@ using AutoMapper.QueryableExtensions;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Services;
 using kp.Business.Abstractions.Validators;
+using kp.Business.Errors;
 using kp.Domain.Data.Core;
 using kp.Entities.Data;
 using kp.Entities.Exceptions;
@@ -35,9 +36,7 @@ namespace kp.Business.Services.Core
         {
             var validationResults = this.NewEntryValidator.Validate(domainEntity);
             if (!validationResults.IsValid)
-            {
-                throw new BusinessException(validationResults.Errors.Select(o => o.ErrorMessage).ToArray());
-            }
+                Error.Throw(validationResults.Errors.Select(o => o.ErrorCode).ToArray());
 
             var entity = this.Repository.Add(Mapper.Map<TEntity>(domainEntity));
 
@@ -59,8 +58,9 @@ namespace kp.Business.Services.Core
 
         public virtual TDomainEntity Update(TDomainEntity domainEntity)
         {
-            var entity = this.Repository.Get().FirstOrDefault(o => o.Id == domainEntity.Id) ??
-                throw new BusinessException($"Entity with Id {domainEntity.Id} does not exist.");
+            var entity = this.Repository.Get().FirstOrDefault(o => o.Id == domainEntity.Id);
+            if (entity is null)
+                Error.Throw(Errors.Errors.SuchEntryDoesNotExist, domainEntity.Id);
 
             Mapper.Map(domainEntity, entity);
             this.Repository.SaveChanges();

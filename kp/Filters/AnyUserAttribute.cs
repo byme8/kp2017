@@ -1,8 +1,7 @@
 ﻿using System;
 using kp.Business.Abstractions.Services;
-using kp.Business.Exceptions;
+using kp.Business.Errors;
 using kp.Domain.Data;
-using kp.Entities.Exceptions;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace kp.WebApi.Filters
@@ -18,15 +17,11 @@ namespace kp.WebApi.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!Guid.TryParse(context.HttpContext.Request.Headers["UserToken"], out var tokenId))
-            {
-                throw new BusinessException("You should be authorized.");
-            }
+                Error.Throw(Errors.AcessDenied);
 
             var tokenService = context.HttpContext.RequestServices.GetService(typeof(ITokenService)) as ITokenService;
             if (tokenService.IsExpired(tokenId))
-            {
-                throw new TokenExpiredException();
-            }
+                Error.Throw(Errors.TokenExpired);
 
             this.Token = tokenService.Get(tokenId);
         }

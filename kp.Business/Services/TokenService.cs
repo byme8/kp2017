@@ -4,6 +4,7 @@ using AutoMapper;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Services;
 using kp.Business.Entities;
+using kp.Business.Errors;
 using kp.Business.Helpers;
 using kp.Domain.Data;
 using kp.Entities.Data;
@@ -32,13 +33,20 @@ namespace kp.Business.Services
 
         public Token Get(Guid id)
         {
+            if (!this.Tokens.Exist(id))
+                Error.Throw(Errors.Errors.SuchEntryDoesNotExist, id);
+
             return Mapper.Map<Token>(this.Tokens.Get().Include(o => o.User).First(o => o.Id == id));
         }
 
         public Token Get(string login, string password)
         {
-            var user = this.Users.Get().FirstOrDefault(o => o.Login == login && o.PasswordHash == HashHelper.GetHash(password))
-                ?? throw new BusinessException("User not found");
+            if (string.IsNullOrWhiteSpace(login) && string.IsNullOrWhiteSpace(password))
+                Error.Throw(Errors.Errors.WrongLoginOrPassword);
+
+            var user = this.Users.Get().FirstOrDefault(o => o.Login == login && o.PasswordHash == HashHelper.GetHash(password));
+            if (user is null)
+                Error.Throw(Errors.Errors.WrongLoginOrPassword);
 
             var token = new TokenEntity
             {

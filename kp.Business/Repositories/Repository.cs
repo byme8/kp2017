@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using kp.Business.Abstractions.Repositories;
+using kp.Business.Errors;
 using kp.Entities.Data;
 using kp.Entities.Exceptions;
 using kp.Repositories.Context;
@@ -60,8 +61,11 @@ namespace kp.Business.Repositories
 
         public TEntity Get(Guid id)
         {
-            return this.Entities.FirstOrDefault(o => o.Id == id)
-                ?? throw new BusinessException("Entity with such id is not found.");
+            var entity = this.Entities.FirstOrDefault(o => o.Id == id);
+            if (entity is null)
+                Error.Throw(Errors.Errors.SuchEntryDoesNotExist, id);
+
+            return entity;
         }
 
         public IQueryable<TEntity> Get()
