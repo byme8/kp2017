@@ -1,12 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using AutoMapper;
 using kp.Domain.Data;
 using kp.Entities.Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kp.Business.Entities
 {

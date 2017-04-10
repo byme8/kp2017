@@ -2,10 +2,6 @@
 using kp.Domain.Data;
 using kp.WebApi.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace kp.WebApi.Controllers
 {

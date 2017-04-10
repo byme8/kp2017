@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FluentValidation;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Validators;
@@ -13,11 +9,11 @@ namespace kp.Business.Validators.Roles
 {
     public class NewRoleValidator : AbstractValidator<Role>, INewEntryValidator<Role>
     {
-		public NewRoleValidator(IRepository<RoleEntity> roles)
-		{
-			this.RuleFor(role => role.Name).
-				Must(name => roles.Get().All(o => o.Name != name)).
-					WithMessage("Role name should be unique.");
-		}
+        public NewRoleValidator(IRepository<RoleEntity> roles)
+        {
+            this.RuleFor(role => role.Name).
+                Must(name => roles.Get().All(o => o.Name != name)).
+                    WithMessage("Role name should be unique.");
+        }
     }
 }

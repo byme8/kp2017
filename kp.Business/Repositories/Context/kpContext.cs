@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using kp.Business.Entities;
+﻿using kp.Business.Entities;
 using kp.Entities.Data;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using kp.Domain.Data;
 
 namespace kp.Repositories.Context
 {
@@ -35,7 +29,6 @@ namespace kp.Repositories.Context
             get;
             set;
         }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

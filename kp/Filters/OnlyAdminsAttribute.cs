@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using kp.Business.Abstractions.Services;
 using kp.Entities.Exceptions;
-using kp.Business.Abstractions.Services;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace kp.WebApi.Filters
 {

@@ -1,16 +1,13 @@
-﻿using kp.Business.Abstractions.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using kp.Domain.Data;
-using kp.Business.Entities;
-using kp.Business.Abstractions.Repositories;
-using kp.Entities.Data;
-using kp.Business.Helpers;
-using kp.Entities.Exceptions;
 using AutoMapper;
+using kp.Business.Abstractions.Repositories;
+using kp.Business.Abstractions.Services;
+using kp.Business.Entities;
+using kp.Business.Helpers;
+using kp.Domain.Data;
+using kp.Entities.Data;
+using kp.Entities.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace kp.Business.Services

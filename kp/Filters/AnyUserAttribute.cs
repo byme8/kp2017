@@ -1,12 +1,9 @@
-﻿using kp.Business.Abstractions.Services;
+﻿using System;
+using kp.Business.Abstractions.Services;
 using kp.Business.Exceptions;
+using kp.Domain.Data;
 using kp.Entities.Exceptions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using kp.Domain.Data;
 
 namespace kp.WebApi.Filters
 {

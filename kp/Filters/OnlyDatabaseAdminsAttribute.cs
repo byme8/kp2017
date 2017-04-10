@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using kp.Entities.Exceptions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using kp.Entities.Exceptions;
 
 namespace kp.WebApi.Filters
 {

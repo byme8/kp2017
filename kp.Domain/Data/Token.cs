@@ -1,9 +1,5 @@
-﻿using kp.Domain.Data.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using kp.Domain.Data.Core;
 
 namespace kp.Domain.Data
 {

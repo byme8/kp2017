@@ -1,12 +1,7 @@
-﻿using kp.Business.Abstractions.Services;
+﻿using System.Linq;
+using kp.Business.Abstractions.Services;
 using kp.Domain.Data;
-using kp.Repositories.Context;
 using Microsoft.AspNetCore.Builder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace kp.Business.Repositories
 {
@@ -14,7 +9,7 @@ namespace kp.Business.Repositories
     {
         public const string DatabaseAdminLogin = "DataBaseAdmin";
         public const string AdminLogin = "Admin";
-        const string Password = "Password";
+        private const string Password = "Password";
         public const string DatabaseAdminRole = "DatabaseAdmin";
         public const string AdminRole = "Admin";
 

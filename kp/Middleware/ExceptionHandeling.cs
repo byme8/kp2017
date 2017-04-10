@@ -1,14 +1,7 @@
-﻿using kp.Entities.Exceptions;
-using kp.WebApi.Models.Responce;
-using Microsoft.AspNetCore.Builder;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+using kp.Entities.Exceptions;
+using Microsoft.AspNetCore.Builder;
 
 namespace kp.WebApi.Middleware
 {
