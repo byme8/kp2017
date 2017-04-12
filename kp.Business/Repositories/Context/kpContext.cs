@@ -30,6 +30,18 @@ namespace kp.Repositories.Context
             set;
         }
 
+        public DbSet<ClientEntity> Clients
+        {
+            get;
+            set;
+        }
+
+        public DbSet<PaymentEntity> Payments
+        {
+            get;
+            set;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
