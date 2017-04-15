@@ -42,6 +42,12 @@ namespace kp.Repositories.Context
             set;
         }
 
+        public DbSet<PaymentKindEntity> PaymentKinds
+        {
+            get;
+            set;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

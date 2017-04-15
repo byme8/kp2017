@@ -28,5 +28,24 @@ namespace kp.Business.Entities
             get;
             set;
         }
+
+        public Guid PaymentKindId
+        {
+            get;
+            set;
+        }
+
+        [ForeignKey(nameof(PaymentKindId))]
+        public PaymentKindEntity PaymentKind
+        {
+            get;
+            set;
+        }
+
+        public int PaymentNumber
+        {
+            get;
+            set;
+        }
     }
 }
