@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using kp.Business.Abstractions.Repositories;
 using kp.Business.Abstractions.Services;
@@ -39,11 +40,7 @@ namespace kp.Entities.Services
 
         public User AddRole(Guid userId, Guid roleId)
         {
-            if (!this.Repository.Exist(userId))
-                Error.Throw(Errors.SuchEntryDoesNotExist, userId);
-
-            if (!this.Roles.Exist(roleId))
-                Error.Throw(Errors.SuchEntryDoesNotExist, roleId);
+            this.RoleCommandValidation(userId, roleId);
 
             this.UserRoles.Add(new UserRoleEntity
             {
@@ -56,6 +53,15 @@ namespace kp.Entities.Services
                 Where(o => o.Id == userId).
                     Include(o => o.Roles).
                 ProjectTo<User>().First();
+        }
+
+        private void RoleCommandValidation(Guid userId, Guid roleId)
+        {
+            if (!this.Repository.Exist(userId))
+                Error.Throw(Errors.SuchEntryDoesNotExist, userId);
+
+            if (!this.Roles.Exist(roleId))
+                Error.Throw(Errors.SuchEntryDoesNotExist, roleId);
         }
 
         public override IQueryable<User> Get()
@@ -93,6 +99,19 @@ namespace kp.Entities.Services
                 Error.Throw(Errors.YouCantDeleteThisUser);
 
             base.Remove(id);
+        }
+
+        public User RemoveRole(Guid userId, Guid roleId)
+        {
+            this.RoleCommandValidation(userId, roleId);
+            var userRole = this.UserRoles.Get().FirstOrDefault(o => o.RoleId == roleId);
+            if (userRole is null)
+                Error.Throw(Errors.UserDoesNotHaveSuchRole);
+
+            this.UserRoles.Remove(userRole.Id);
+            this.UserRoles.SaveChanges();
+
+            return Mapper.Map<User>(this.Repository.Get().First(o => o.Id == userId));
         }
     }
 }

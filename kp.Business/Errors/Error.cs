@@ -43,6 +43,7 @@ namespace kp.Business.Errors
         public const string RoleShouldHaveName = "RoleShouldHaveName";
         public const string YouCantDeleteThisRole = "YouCantDeleteThisRole";
         public const string RoleNameShouldBeUnique = "RoleNameShouldBeUnique";
+        public const string UserDoesNotHaveSuchRole = "UserDoesNotHaveSuchRole";
 
         #endregion Roles
 

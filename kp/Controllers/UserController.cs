@@ -27,5 +27,11 @@ namespace kp.Controllers
         {
             return this.Users.AddRole(userId, roleId);
         }
+
+        [HttpDelete("{userId}/roles/{roleId}")]
+        public User DeleteRole(Guid userId, Guid roleId)
+        {
+            return this.Users.RemoveRole(userId, roleId);
+        }
     }
 }
