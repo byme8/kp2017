@@ -19,6 +19,8 @@ namespace kp.Business.Validators.Clients
                 NotEmpty();
             this.RuleFor(o => o.LastName).
                 NotEmpty();
+            this.RuleFor(o => o.Email).
+                NotEmpty();
         }
     }
 }

@@ -29,6 +29,12 @@ namespace kp.Business.Entities
             set;
         }
 
+        public string Email
+        {
+            get;
+            set;
+        }
+
         public List<PaymentEntity> Payments
         {
             get;
