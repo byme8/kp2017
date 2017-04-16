@@ -59,5 +59,14 @@ namespace kp.Business.Errors
         public const string TokenExpired = "TokenExpired";
 
         #endregion Authorization
+
+        #region Clinets
+
+        public const string ClientShouldHaveFirstName = "ClientShouldHaveFirstName";
+        public const string ClientShouldHaveEmail = "ClientShouldHaveEmail";
+        public const string ClientShouldHaveLastName = "ClientShouldHaveLastName";
+
+        #endregion
+
     }
 }

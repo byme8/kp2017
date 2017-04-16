@@ -16,11 +16,14 @@ namespace kp.Business.Validators.Clients
         public NewClientValidator(IRepository<ClientEntity> clients)
         {
             this.RuleFor(o => o.FirstName).
-                NotEmpty();
+                NotEmpty().
+                    WithErrorCode(Errors.Errors.ClientShouldHaveFirstName);
             this.RuleFor(o => o.LastName).
-                NotEmpty();
+                NotEmpty().
+                    WithErrorCode(Errors.Errors.ClientShouldHaveLastName);
             this.RuleFor(o => o.Email).
-                NotEmpty();
+                NotEmpty().
+                    WithErrorCode(Errors.Errors.ClientShouldHaveEmail);
         }
     }
 }
