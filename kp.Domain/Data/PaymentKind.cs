@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using kp.Domain.Data;
-using kp.Entities.Data;
+using kp.Domain.Data.Core;
 
-namespace kp.Business.Entities
+namespace kp.Domain.Data
 {
-    public class PaymentKindEntity : Entity
+    public enum PaymentKindPeriod
+    {
+        Day,
+        Month,
+        Quarter,
+        Year
+    }
+
+    public class PaymentKind : DomainEntity
     {
         public string Name
         {
@@ -22,13 +29,13 @@ namespace kp.Business.Entities
             set;
         }
 
-        public DateTime StartDate
+        public DateTime? StartDate
         {
             get;
             set;
         }
 
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get;
             set;

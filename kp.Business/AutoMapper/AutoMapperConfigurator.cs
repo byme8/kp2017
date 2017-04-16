@@ -3,6 +3,7 @@ using AutoMapper;
 using kp.Business.Entities;
 using kp.Business.Helpers;
 using kp.Domain.Data;
+using kp.Domain.Data.Core;
 using kp.Entities.Data;
 using Microsoft.AspNetCore.Builder;
 
@@ -36,8 +37,21 @@ namespace kp.Business.AutoMapper
 
                 mapper.CreateMap<RoleEntity, Role>();
                 mapper.CreateMap<Role, RoleEntity>();
+
                 mapper.MapToken();
+                mapper.MapClient();
+                mapper.SimpleMap<PaymentEntity, Payment>();
+                mapper.SimpleMap<PaymentKindEntity, PaymentKind>();
             });
+
+        }
+
+        static void SimpleMap<TEntity, TDomainEntity>(this IMapperConfigurationExpression mapper)
+            where TEntity : Entity
+            where TDomainEntity : DomainEntity
+        {
+            mapper.CreateMap<TEntity, TDomainEntity>();
+            mapper.CreateMap<TDomainEntity, TEntity>();
         }
     }
 }

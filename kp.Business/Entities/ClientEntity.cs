@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using kp.Domain.Data;
 using kp.Entities.Data;
 
 namespace kp.Business.Entities
@@ -27,10 +29,19 @@ namespace kp.Business.Entities
             set;
         }
 
-        public IList<PaymentEntity> Payments
+        public List<PaymentEntity> Payments
         {
             get;
             set;
         } = new List<PaymentEntity>();
+    }
+
+    internal static class ClientMapper
+    {
+        internal static void MapClient(this IMapperConfigurationExpression mapper)
+        {
+            mapper.CreateMap<ClientEntity, Client>();
+            mapper.CreateMap<Client, ClientEntity>();
+        }
     }
 }

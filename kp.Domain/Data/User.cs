@@ -17,10 +17,10 @@ namespace kp.Domain.Data
             set;
         }
 
-        public IEnumerable<Role> Roles
+        public List<Role> Roles
         {
             get;
             set;
-        }
+        } = new List<Role>();
     }
 }
