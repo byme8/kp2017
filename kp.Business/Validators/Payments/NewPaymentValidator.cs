@@ -11,9 +11,9 @@ using kp.Domain.Data;
 
 namespace kp.Business.Validators.Payments
 {
-    public class NewPaymentValidator : AbstractValidator<Payment>, INewEntryValidator<Payment>
+    public class NewPaymentValidator : AbstractValidator<PaymentRow>, INewEntryValidator<PaymentRow>
     {
-        public NewPaymentValidator(IRepository<PaymentEntity> payments, IRepository<PaymentKindEntity> paymentKinds, IRepository<ClientEntity> clients)
+        public NewPaymentValidator(IRepository<PaymentRowEntity> payments, IRepository<PaymentKindEntity> paymentKinds, IRepository<ClientEntity> clients)
         {
             this.RuleFor(o => o.Client).
                 Must(client => clients.Exist(client.Id));
@@ -21,10 +21,12 @@ namespace kp.Business.Validators.Payments
             this.RuleFor(o => o.PaymentKind).
                 Must(paymentKind => paymentKinds.Exist(paymentKind.Id));
 
+            //TODO: Thick about rules
+            //this.RuleFor(o => o).
+            //    Must(payment => payments.Get().Where(o => o.ClientId == payment.Client.Id && o.PaymentKindId == payment.PaymentKind.Id));
+
             this.RuleFor(o => o).
-                Must(payment => payment.PaymentNumber > 0 && 
-                     payments.Get().Where(o => o.ClientId == payment.Client.Id && o.PaymentKindId == payment.PaymentKind.Id).
-                     All(o => o.PaymentNumber != payment.PaymentNumber));
+                Must(paymentKind => paymentKind.StartDate.GetValueOrDefault(DateTime.MinValue) <= paymentKind.EndDate.GetValueOrDefault(DateTime.MaxValue));
         }
     }
 }

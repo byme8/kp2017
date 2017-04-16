@@ -9,9 +9,10 @@ using kp.Domain.Data;
 namespace kp.Business.Migrations
 {
     [DbContext(typeof(kpContext))]
-    partial class kpContextModelSnapshot : ModelSnapshot
+    [Migration("20170416104333_MoveStartAndEndDateFromPaymentKindToPayment")]
+    partial class MoveStartAndEndDateFromPaymentKindToPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -42,15 +43,25 @@ namespace kp.Business.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid>("ClientId");
+
                     b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<Guid>("PaymentKindId");
 
                     b.Property<int>("PaymentNumber");
 
-                    b.Property<Guid>("PaymentRowId");
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<decimal>("Value");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PaymentRowId");
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("PaymentKindId");
 
                     b.ToTable("Payments");
                 });
@@ -69,32 +80,6 @@ namespace kp.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PaymentKinds");
-                });
-
-            modelBuilder.Entity("kp.Business.Entities.PaymentRowEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ClientId");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime>("EndDate");
-
-                    b.Property<Guid>("PaymentKindId");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.Property<decimal>("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("PaymentKindId");
-
-                    b.ToTable("PaymentRows");
                 });
 
             modelBuilder.Entity("kp.Business.Entities.RoleEntity", b =>
@@ -166,14 +151,6 @@ namespace kp.Business.Migrations
                 });
 
             modelBuilder.Entity("kp.Business.Entities.PaymentEntity", b =>
-                {
-                    b.HasOne("kp.Business.Entities.PaymentRowEntity", "PaymentRow")
-                        .WithMany()
-                        .HasForeignKey("PaymentRowId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("kp.Business.Entities.PaymentRowEntity", b =>
                 {
                     b.HasOne("kp.Business.Entities.ClientEntity", "Client")
                         .WithMany("Payments")

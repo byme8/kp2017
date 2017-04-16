@@ -1,42 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using kp.Domain.Data.Core;
 
 namespace kp.Domain.Data
 {
-    public class Client : DomainEntity
+    public class PaymentRow : DomainEntity
     {
-        public string FirstName
+        public Client Client
         {
             get;
             set;
         }
 
-        public string LastName
+        public decimal Value
         {
             get;
             set;
         }
 
-        public string Surname
+        public PaymentKind PaymentKind
         {
             get;
             set;
         }
 
-        public string Email
+        public DateTime? StartDate
         {
             get;
             set;
         }
 
-        public List<PaymentRow> Payments
+        public DateTime? EndDate
         {
             get;
             set;
-        } = new List<PaymentRow>();
+        }
     }
 }

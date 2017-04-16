@@ -14,19 +14,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace kp.Business.Services
 {
-    public class PaymentService : EntityService<Payment, PaymentEntity>, IEntityService<Payment>
+    public class PaymentService : EntityService<PaymentRow, PaymentRowEntity>, IEntityService<PaymentRow>
     {
-        public PaymentService(IRepository<PaymentEntity> entities, INewEntryValidator<Payment> newEntryValidator) 
+        public PaymentService(IRepository<PaymentRowEntity> entities, INewEntryValidator<PaymentRow> newEntryValidator) 
             : base(entities, newEntryValidator)
         {
         }
 
-        public override IQueryable<Payment> Get()
+        public override IQueryable<PaymentRow> Get()
         {
             return this.Repository.Get().
                     Include(o => o.Client).
                     Include(o => o.PaymentKind).
-                ProjectTo<Payment>();
+                ProjectTo<PaymentRow>();
         }
     }
 }

@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace kp.WebApi.Controllers
 {
     [Route("api/payments")]
-    public class PaymentController : EntityController<Payment>
+    public class PaymentController : EntityController<PaymentRow>
     {
-        public PaymentController(IEntityService<Payment> entities) 
+        public PaymentController(IEntityService<PaymentRow> entities) 
             : base(entities)
         {
         }

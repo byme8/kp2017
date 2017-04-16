@@ -28,7 +28,7 @@ namespace kp.Entities
             services.AddScoped<INewEntryValidator<User>, NewUserValidator>();
             services.AddScoped<INewEntryValidator<Role>, NewRoleValidator>();
             services.AddScoped<INewEntryValidator<Client>, NewClientValidator>();
-            services.AddScoped<INewEntryValidator<Payment>, NewPaymentValidator>();
+            services.AddScoped<INewEntryValidator<PaymentRow>, NewPaymentValidator>();
             services.AddScoped<INewEntryValidator<PaymentKind>, NewPaymentKindValidator>();
 
             // Services

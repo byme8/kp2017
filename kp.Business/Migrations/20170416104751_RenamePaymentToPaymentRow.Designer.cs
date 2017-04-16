@@ -9,9 +9,10 @@ using kp.Domain.Data;
 namespace kp.Business.Migrations
 {
     [DbContext(typeof(kpContext))]
-    partial class kpContextModelSnapshot : ModelSnapshot
+    [Migration("20170416104751_RenamePaymentToPaymentRow")]
+    partial class RenamePaymentToPaymentRow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -35,24 +36,6 @@ namespace kp.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("kp.Business.Entities.PaymentEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("PaymentNumber");
-
-                    b.Property<Guid>("PaymentRowId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentRowId");
-
-                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("kp.Business.Entities.PaymentKindEntity", b =>
@@ -83,6 +66,8 @@ namespace kp.Business.Migrations
                     b.Property<DateTime>("EndDate");
 
                     b.Property<Guid>("PaymentKindId");
+
+                    b.Property<int>("PaymentNumber");
 
                     b.Property<DateTime>("StartDate");
 
@@ -163,14 +148,6 @@ namespace kp.Business.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("kp.Business.Entities.PaymentEntity", b =>
-                {
-                    b.HasOne("kp.Business.Entities.PaymentRowEntity", "PaymentRow")
-                        .WithMany()
-                        .HasForeignKey("PaymentRowId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("kp.Business.Entities.PaymentRowEntity", b =>

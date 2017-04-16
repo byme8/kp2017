@@ -14,9 +14,6 @@ namespace kp.Business.Validators.PaymentKinds
         {
             this.RuleFor(o => o.Name).
                 Must(name => paymentKinds.Get().All(o => o.Name != name));
-
-            this.RuleFor(o => o).
-                Must(paymentKind => paymentKind.StartDate.GetValueOrDefault(DateTime.MinValue) <= paymentKind.EndDate.GetValueOrDefault(DateTime.MaxValue));
         }
     }
 }

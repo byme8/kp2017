@@ -36,6 +36,12 @@ namespace kp.Repositories.Context
             set;
         }
 
+        public DbSet<PaymentRowEntity> PaymentRows
+        {
+            get;
+            set;
+        }
+
         public DbSet<PaymentEntity> Payments
         {
             get;

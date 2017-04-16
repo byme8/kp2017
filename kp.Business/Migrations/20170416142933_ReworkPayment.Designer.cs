@@ -9,9 +9,10 @@ using kp.Domain.Data;
 namespace kp.Business.Migrations
 {
     [DbContext(typeof(kpContext))]
-    partial class kpContextModelSnapshot : ModelSnapshot
+    [Migration("20170416142933_ReworkPayment")]
+    partial class ReworkPayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

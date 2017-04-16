@@ -35,11 +35,11 @@ namespace kp.Business.Entities
             set;
         }
 
-        public List<PaymentEntity> Payments
+        public List<PaymentRowEntity> Payments
         {
             get;
             set;
-        } = new List<PaymentEntity>();
+        } = new List<PaymentRowEntity>();
     }
 
     internal static class ClientMapper

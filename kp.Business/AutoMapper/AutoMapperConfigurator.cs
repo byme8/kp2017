@@ -41,6 +41,7 @@ namespace kp.Business.AutoMapper
                 mapper.MapToken();
                 mapper.MapClient();
                 mapper.SimpleMap<PaymentEntity, Payment>();
+                mapper.SimpleMap<PaymentRowEntity, PaymentRow>();
                 mapper.SimpleMap<PaymentKindEntity, PaymentKind>();
             });
 

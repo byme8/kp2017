@@ -10,33 +10,14 @@ namespace kp.Business.Entities
 {
     public class PaymentEntity : Entity
     {
-        public Guid ClientId
+        public Guid PaymentRowId
         {
             get;
             set;
         }
 
-        [ForeignKey(nameof(ClientId))]
-        public ClientEntity Client
-        {
-            get;
-            set;
-        }
-
-        public decimal Value
-        {
-            get;
-            set;
-        }
-
-        public Guid PaymentKindId
-        {
-            get;
-            set;
-        }
-
-        [ForeignKey(nameof(PaymentKindId))]
-        public PaymentKindEntity PaymentKind
+        [ForeignKey(nameof(PaymentRowId))]
+        public PaymentRowEntity PaymentRow
         {
             get;
             set;

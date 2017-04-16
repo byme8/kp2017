@@ -11,7 +11,6 @@ namespace kp.Domain.Data
     {
         Day,
         Month,
-        Quarter,
         Year
     }
 
@@ -24,18 +23,6 @@ namespace kp.Domain.Data
         }
 
         public PaymentKindPeriod Period
-        {
-            get;
-            set;
-        }
-
-        public DateTime? StartDate
-        {
-            get;
-            set;
-        }
-
-        public DateTime? EndDate
         {
             get;
             set;
