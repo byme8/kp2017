@@ -36,7 +36,11 @@ namespace kp.Business.Services
             if (!this.Tokens.Exist(id))
                 Error.Throw(Errors.Errors.SuchEntryDoesNotExist, id);
 
-            return Mapper.Map<Token>(this.Tokens.Get().Include(o => o.User).First(o => o.Id == id));
+            var token = this.Tokens.Get().Include(o => o.User).First(o => o.Id == id);
+            if (token.ExpireDate < DateTime.Now)
+                Error.Throw(Errors.Errors.TokenExpired);
+
+            return Mapper.Map<Token>(token);
         }
 
         public Token Get(string login, string password)

@@ -9,13 +9,31 @@ namespace kp.Domain.Data
 {
     public class Payment : DomainEntity
     {
-        public PaymentRow PaymentRow
+        public Client Client
         {
             get;
             set;
         }
 
-        public int PaymentNumber
+        public PaymentKind PaymentKind
+        {
+            get;
+            set;
+        }
+
+        public decimal Value
+        {
+            get;
+            set;
+        }
+
+        public DateTime StartDate
+        {
+            get;
+            set;
+        }
+
+        public DateTime EndDate
         {
             get;
             set;

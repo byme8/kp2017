@@ -36,6 +36,7 @@ namespace kp.Entities
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IEntityService<Client>, ClientService>();
+            services.AddScoped<IEntityService<PaymentKind>, PaymentKindService>();
         }
     }
 }

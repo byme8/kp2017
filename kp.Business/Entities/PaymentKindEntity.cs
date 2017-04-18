@@ -15,11 +15,5 @@ namespace kp.Business.Entities
             get;
             set;
         }
-
-        public PaymentKindPeriod Period
-        {
-            get;
-            set;
-        }
     }
 }

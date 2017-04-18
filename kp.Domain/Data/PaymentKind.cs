@@ -21,11 +21,5 @@ namespace kp.Domain.Data
             get;
             set;
         }
-
-        public PaymentKindPeriod Period
-        {
-            get;
-            set;
-        }
     }
 }
